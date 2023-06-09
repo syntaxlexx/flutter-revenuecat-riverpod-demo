@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../models/models.dart';
 import '../providers/providers.dart';
@@ -179,41 +180,49 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
   Widget getMonthlyButton(RevenuecatState revenueCat) {
     return !revenueCat.hasMonthlyOffering
         ? Container()
-        : Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 20),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 22),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Constants.primaryColor,
-            ),
-            child: Center(
-              child: revenueCat.hasMonthlyIntroOffering
-                  ? Column(
-                      children: [
-                        Text(
-                          'Start a ${revenueCat.monthlyIntroOffering} Free Trial'.toUpperCase(),
-                          style: context.bodySmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+        : InkWell(
+            onTap: () {
+              Package package = revenueCat.offerings!.current!.availablePackages
+                  .firstWhere((element) => element.storeProduct.identifier == Constants.proMembershipMonthly);
+
+              ref.read(revenuecatProvider.notifier).purchase(package);
+            },
+            child: Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 22),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Constants.primaryColor,
+              ),
+              child: Center(
+                child: revenueCat.hasMonthlyIntroOffering
+                    ? Column(
+                        children: [
+                          Text(
+                            'Start a ${revenueCat.monthlyIntroOffering} Free Trial'.toUpperCase(),
+                            style: context.bodySmall?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '${revenueCat.monthlyOffering}/month after',
-                          style: context.bodySmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                          Text(
+                            '${revenueCat.monthlyOffering}/month after',
+                            style: context.bodySmall?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
+                        ],
+                      )
+                    : Text(
+                        'Start a ${revenueCat.monthlyOffering}/month subscription',
+                        style: context.bodySmall?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    )
-                  : Text(
-                      'Start a ${revenueCat.monthlyOffering}/month subscription',
-                      style: context.bodySmall?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
                       ),
-                    ),
+              ),
             ),
           );
   }

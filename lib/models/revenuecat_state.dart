@@ -10,7 +10,7 @@ class RevenuecatState {
 
   bool get hasError => errorMessage?.isNotEmpty ?? false;
   bool get hasOfferings => offerings?.current != null;
-  bool get isProMember => customerInfo?.entitlements.active.containsKey(RevenuecatEntitlements.pro) ?? false;
+  bool get isProMember => customerInfo?.entitlements.active.containsKey(RevenuecatEntitlements.pro.name) ?? false;
 
   // monthly offering
   bool get hasMonthlyOffering => offerings?.current?.monthly != null;

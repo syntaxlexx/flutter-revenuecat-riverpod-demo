@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
+import '../enums/revenuecat_membership.dart';
 import '../models/models.dart';
 import '../utils/utils.dart';
 
@@ -54,7 +55,7 @@ class RevenuecatNotifier extends StateNotifier<RevenuecatState> {
       state = state.copyWith(customerInfo: customerInfo);
 
       logger.i(customerInfo);
-      inspect(customerInfo);
+      // inspect(customerInfo);
 
       // if (customerInfo.entitlements.all[<my_entitlement_identifier>].isActive) {
       // Grant user "pro" access
@@ -108,6 +109,7 @@ class RevenuecatNotifier extends StateNotifier<RevenuecatState> {
       logger.e(e);
       // optional error handling
       state = state.copyWith(errorMessage: 'Could not restore purchases!');
+      showErrorSnackbar(context, 'Could not restore purchases');
     }
 
     state = state.copyWith(isLoading: false);
