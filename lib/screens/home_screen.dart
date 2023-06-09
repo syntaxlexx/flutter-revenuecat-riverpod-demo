@@ -93,44 +93,47 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
           ),
-          Column(
-            children: [
-              SizedBox(
-                height: size.height * 0.15,
-              ),
-              Center(
-                child: Image.asset(
-                  'assets/images/fastfit-trans.png',
-                  fit: BoxFit.contain,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: size.height * 0.15,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: actionsRow
-                    .map((e) => Expanded(
-                          child: ActionRow(
+                Center(
+                  child: Image.asset(
+                    'assets/images/fastfit-trans.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: actionsRow
+                      .map((e) => Expanded(
+                            child: ActionRow(
+                              action: e,
+                            ),
+                          ))
+                      .toList(),
+                ),
+                Column(
+                  children: actions
+                      .map((e) => ActionRow(
                             action: e,
-                          ),
-                        ))
-                    .toList(),
-              ),
-              Column(
-                children: actions
-                    .map((e) => ActionRow(
-                          action: e,
-                        ))
-                    .toList(),
-              ),
-              Column(
-                children: proActions
-                    .map((e) => ActionRow(
-                          action: e,
-                        ))
-                    .toList(),
-              ),
-            ],
+                          ))
+                      .toList(),
+                ),
+                Column(
+                  children: proActions
+                      .map((e) => ActionRow(
+                            action: e,
+                          ))
+                      .toList(),
+                ),
+              ],
+            ),
           ),
         ],
       ),

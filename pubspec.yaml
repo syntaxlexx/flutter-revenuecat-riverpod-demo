@@ -23,6 +23,9 @@ dependencies:
   flex_color_scheme: ^7.1.2
   google_fonts: ^5.0.0
   path_provider: ^2.0.15
+  equatable: ^2.0.5
+  logger: ^1.4.0
+  material_design_icons_flutter: ^7.0.7296
 
 dev_dependencies:
   flutter_test:

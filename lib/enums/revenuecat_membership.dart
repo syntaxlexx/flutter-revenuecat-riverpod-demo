@@ -1,0 +1,4 @@
+enum RevenuecatMembership {
+  proMonthly,
+  proYearly,
+}
