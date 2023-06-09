@@ -1,12 +1,13 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
-import '../enums/revenuecat_membership.dart';
-import '../models/revenuecat_state.dart';
+import '../models/models.dart';
+import '../utils/utils.dart';
 
 final revenuecatProvider = StateNotifierProvider<RevenuecatNotifier, RevenuecatState>((ref) {
   return RevenuecatNotifier(const RevenuecatState());
@@ -53,6 +54,7 @@ class RevenuecatNotifier extends StateNotifier<RevenuecatState> {
       state = state.copyWith(customerInfo: customerInfo);
 
       logger.i(customerInfo);
+      inspect(customerInfo);
 
       // if (customerInfo.entitlements.all[<my_entitlement_identifier>].isActive) {
       // Grant user "pro" access
@@ -87,13 +89,17 @@ class RevenuecatNotifier extends StateNotifier<RevenuecatState> {
     state = state.copyWith(isLoading: false);
   }
 
-  Future<void> restorePurchase() async {
+  Future<void> restorePurchase(BuildContext context) async {
     state = state.copyWith(isLoading: true);
     try {
       CustomerInfo restoredInfo = await Purchases.restorePurchases();
       state = state.copyWith(customerInfo: restoredInfo);
 
       logger.i(restoredInfo);
+
+      if (restoredInfo.activeSubscriptions.isEmpty) {
+        showSnackbar(context, 'No active subscriptions found');
+      }
 
       // if (customerInfo.entitlements.all[<my_entitlement_identifier>].isActive) {
       // Grant user "pro" access

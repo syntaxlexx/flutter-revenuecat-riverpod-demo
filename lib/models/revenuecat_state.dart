@@ -1,5 +1,7 @@
 import 'package:purchases_flutter/purchases_flutter.dart';
 
+import '../enums/revenuecat_membership.dart';
+
 class RevenuecatState {
   final Offerings? offerings;
   final CustomerInfo? customerInfo;
@@ -8,6 +10,7 @@ class RevenuecatState {
 
   bool get hasError => errorMessage?.isNotEmpty ?? false;
   bool get hasOfferings => offerings?.current != null;
+  bool get isProMember => customerInfo?.entitlements.active.containsKey(RevenuecatEntitlements.pro) ?? false;
 
   // monthly offering
   bool get hasMonthlyOffering => offerings?.current?.monthly != null;

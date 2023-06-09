@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../models/home_action.dart';
-import '../utils/constants.dart';
-import '../utils/text_extensions.dart';
-import '../widgets/action_row.dart';
+import '../models/models.dart';
+import '../providers/providers.dart';
+import '../utils/utils.dart';
+import '../widgets/widgets.dart';
 import 'free_screen.dart';
 import 'pro_screen.dart';
 
@@ -18,51 +19,51 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final List<HomeAction> actionsRow = [
-    const HomeAction(
+    HomeAction(
       title: 'Track Workout',
       routeName: FreeScreen.routeName,
       color: Constants.primaryColor,
-      icon: Icons.fitness_center,
+      icon: MdiIcons.weightLifter,
       vertical: true,
     ),
-    const HomeAction(
+    HomeAction(
       title: 'Browse Workouts',
       routeName: FreeScreen.routeName,
-      color: Color(0XFF1982c4),
-      icon: Icons.library_books,
+      color: const Color(0XFF1982c4),
+      icon: MdiIcons.folderTextOutline,
       vertical: true,
     )
   ];
 
   final List<HomeAction> actions = [
-    const HomeAction(
+    HomeAction(
       title: 'Connect with Friends',
       routeName: FreeScreen.routeName,
-      color: Color(0XFFf44174),
-      icon: Icons.share,
+      color: const Color(0XFFf44174),
+      icon: MdiIcons.shareVariant,
     ),
   ];
 
   final List<HomeAction> proActions = [
-    const HomeAction(
+    HomeAction(
       title: 'Add an Exercise',
       routeName: ProScreen.routeName,
-      color: Color(0XFF8ac926),
-      icon: Icons.add_circle,
+      color: const Color(0XFF8ac926),
+      icon: MdiIcons.plusCircle,
       requiresPro: true,
     ),
-    const HomeAction(
+    HomeAction(
       title: 'Create a Routine',
       routeName: ProScreen.routeName,
-      color: Color(0XFFc03221),
-      icon: Icons.timer_10,
+      color: const Color(0XFFc03221),
+      icon: MdiIcons.timetable,
       requiresPro: true,
     ),
-    const HomeAction(
+    HomeAction(
       title: 'Join a Challenge',
       routeName: ProScreen.routeName,
-      color: Color(0XFF23967f),
-      icon: Icons.sports_gymnastics,
+      color: const Color(0XFF23967f),
+      icon: MdiIcons.accountGroup,
       requiresPro: true,
     ),
   ];
@@ -70,6 +71,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final revenueCat = ref.watch(revenuecatProvider);
 
     return Scaffold(
       body: Stack(
@@ -86,7 +88,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     color: Theme.of(context).primaryColor,
                   ),
                   Text(
-                    'PRO/UPGRADE',
+                    revenueCat.isProMember ? 'PRO' : 'PRO/UPGRADE',
                     style: context.titleSmall,
                   ),
                 ],

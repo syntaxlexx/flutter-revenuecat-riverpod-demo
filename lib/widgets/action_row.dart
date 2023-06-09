@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../models/home_action.dart';
+import '../providers/providers.dart';
 import '../screens/paywall_screen.dart';
-import '../utils/text_extensions.dart';
+import '../utils/utils.dart';
 
 class ActionRow extends ConsumerStatefulWidget {
   final HomeAction action;
@@ -16,11 +17,10 @@ class ActionRow extends ConsumerStatefulWidget {
 }
 
 class _ActionRowState extends ConsumerState<ActionRow> {
-  final isProMember = false;
-
   @override
   Widget build(BuildContext context) {
-    final lockedForProMembers = widget.action.requiresPro && !isProMember;
+    final revenueCat = ref.watch(revenuecatProvider);
+    final lockedForProMembers = widget.action.requiresPro && !revenueCat.isProMember;
 
     return Container(
       margin: const EdgeInsets.all(5).copyWith(bottom: 4),
@@ -79,8 +79,8 @@ class _ActionRowState extends ConsumerState<ActionRow> {
 
   List<Widget> buildContent() {
     return [
-      const Icon(
-        Icons.lock,
+      Icon(
+        widget.action.icon,
         size: 20,
         color: Colors.white,
       ),
