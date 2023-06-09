@@ -19,6 +19,8 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+> NB: Copy the `.env.example` file to `.env` and provide the requried keys
+
 
 ## Google play subscriptions
 For the subscriptions to work, ensure your app is released to 'Closed Testing'. Otherwise, you won't be able to view the products from Google Play. Make sure you release to the **closed testing**.
