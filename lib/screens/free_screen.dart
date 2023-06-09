@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../utils/utils.dart';
 
 class FreeScreen extends ConsumerStatefulWidget {
   const FreeScreen({Key? key}) : super(key: key);
@@ -16,10 +19,21 @@ class _FreeScreenState extends ConsumerState<FreeScreen> {
       appBar: AppBar(
         title: const Text('Free'),
       ),
-      body: SingleChildScrollView(
+      body: Center(
         child: Column(
-          children: const [
-            Text('Free Page'),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              MdiIcons.star,
+              color: Constants.primaryColor,
+              size: 150,
+            ),
+            Text(
+              'Free Features Page'.toUpperCase(),
+              style: context.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),

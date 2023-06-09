@@ -34,7 +34,7 @@ class RevenuecatNotifier extends StateNotifier<RevenuecatState> {
       state = state.copyWith(offerings: offerings);
 
       logger.i(offerings);
-      inspect(offerings);
+      // inspect(offerings);
 
       if (offerings.current != null) {
         // Display current offering with offerings.current
