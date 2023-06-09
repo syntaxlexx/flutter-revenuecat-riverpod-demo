@@ -143,6 +143,19 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                           // sub buttons
                           getMonthlyButton(revenueCat),
                           getAnnualButton(revenueCat),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          Text(
+                            'Restore Purchases',
+                            style: context.bodyLarge?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
                         ],
                       ),
                     ),
