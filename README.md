@@ -19,7 +19,7 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-> NB: Copy the `.env.example` file to `.env` and provide the requried keys
+> NB: Copy the `.env.example` file to `.env` and provide the required keys
 
 
 ## Google play subscriptions
