@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
-import '../enums/revenuecat_membership.dart';
 import '../models/models.dart';
 import '../utils/utils.dart';
 

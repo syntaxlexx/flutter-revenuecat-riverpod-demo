@@ -28,6 +28,7 @@ dependencies:
   material_design_icons_flutter: ^7.0.7296
   loading_overlay: ^0.3.0
   flutter_dotenv: ^5.1.0
+  timeago: ^3.4.0
 
 dev_dependencies:
   flutter_test:

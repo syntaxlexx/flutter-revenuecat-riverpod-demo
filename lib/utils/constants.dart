@@ -7,5 +7,5 @@ class Constants {
   static final String revenuecatAndroidKey = dotenv.env['REVENUECAT_ANDROID_KEY'] as String;
   static final String revenuecatAppleKey = dotenv.env['REVENUECAT_APPLE_KEY'] as String;
   static const String proMembershipMonthly = 'pro_monthly:pro-monthly-base';
-  static const String proMembershipYearly = 'pro_monthly:pro_yearly';
+  static const String proMembershipYearly = 'pro_monthly:pro-yearly';
 }

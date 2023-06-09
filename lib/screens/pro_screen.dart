@@ -104,11 +104,22 @@ class _ProScreenState extends ConsumerState<ProScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            subtitle: Text(
-                              e.value.latestPurchaseDate,
-                              style: context.bodySmall?.copyWith(
-                                fontWeight: FontWeight.w300,
-                              ),
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  fromNow(convertToDateTime(e.value.latestPurchaseDate)),
+                                  style: context.bodySmall?.copyWith(
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                                Text(
+                                  'Ends ${fromNow(convertToDateTime(e.value.expirationDate))}',
+                                  style: context.bodySmall?.copyWith(
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ],
                             ),
                           ))
                       .toList(),

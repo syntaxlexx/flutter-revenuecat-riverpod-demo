@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
@@ -7,6 +8,7 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import '../models/models.dart';
 import '../providers/providers.dart';
 import '../utils/utils.dart';
+import 'pro_screen.dart';
 
 class PaywallScreen extends ConsumerStatefulWidget {
   const PaywallScreen({Key? key}) : super(key: key);
@@ -43,7 +45,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
     ref.listen(revenuecatProvider, (prev, next) {
       if (next.isProMember) {
         // navigate to the page. maybe also pass it as a varible in goRouter?
-        Navigator.pop(context);
+        context.pushReplacementNamed(ProScreen.routeName);
       }
     });
 
@@ -182,10 +184,14 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
         ? Container()
         : InkWell(
             onTap: () {
-              Package package = revenueCat.offerings!.current!.availablePackages
-                  .firstWhere((element) => element.storeProduct.identifier == Constants.proMembershipMonthly);
+              try {
+                Package package = revenueCat.offerings!.current!.availablePackages
+                    .firstWhere((element) => element.storeProduct.identifier == Constants.proMembershipMonthly);
 
-              ref.read(revenuecatProvider.notifier).purchase(package);
+                ref.read(revenuecatProvider.notifier).purchase(package);
+              } catch (e) {
+                showSnackbar(context, 'Could not complete purchase. Try again.');
+              }
             },
             child: Container(
               width: double.infinity,
@@ -230,51 +236,63 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
   Widget getAnnualButton(RevenuecatState revenueCat) {
     return !revenueCat.hasAnnualOffering
         ? Container()
-        : Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 20),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 22),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Constants.primaryColor,
-            ),
-            child: Center(
-              child: Column(
-                children: [
-                  revenueCat.hasAnnualIntroOffering
-                      ? Column(
-                          children: [
-                            Text(
-                              'Start a ${revenueCat.annualIntroOffering} Free Trial'.toUpperCase(),
-                              style: context.bodySmall?.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+        : InkWell(
+            onTap: () {
+              try {
+                Package package = revenueCat.offerings!.current!.availablePackages
+                    .firstWhere((element) => element.storeProduct.identifier == Constants.proMembershipYearly);
+
+                ref.read(revenuecatProvider.notifier).purchase(package);
+              } catch (e) {
+                showSnackbar(context, 'Could not complete purchase. Try again.');
+              }
+            },
+            child: Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 22),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Constants.primaryColor,
+              ),
+              child: Center(
+                child: Column(
+                  children: [
+                    revenueCat.hasAnnualIntroOffering
+                        ? Column(
+                            children: [
+                              Text(
+                                'Start a ${revenueCat.annualIntroOffering} Free Trial'.toUpperCase(),
+                                style: context.bodySmall?.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Text(
-                              '${revenueCat.annualOffering}/year after',
-                              style: context.bodySmall?.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                              Text(
+                                '${revenueCat.annualOffering}/year after',
+                                style: context.bodySmall?.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
+                            ],
+                          )
+                        : Text(
+                            'Start a ${revenueCat.annualOffering}/year subscription',
+                            style: context.bodySmall?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
-                        )
-                      : Text(
-                          'Start a ${revenueCat.annualOffering}/year subscription',
-                          style: context.bodySmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
                           ),
-                        ),
-                  Text(
-                    'Save ${revenueCat.getAnnualSavings()}% Annually',
-                    style: context.bodyMedium?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      'Save ${revenueCat.getAnnualSavings()}% Annually',
+                      style: context.bodyMedium?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
