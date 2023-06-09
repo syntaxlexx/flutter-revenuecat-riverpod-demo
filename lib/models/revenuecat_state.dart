@@ -16,6 +16,13 @@ class RevenuecatState {
       '${offerings?.current?.monthly?.storeProduct.introductoryPrice?.periodNumberOfUnits} x ${offerings?.current?.monthly?.storeProduct.introductoryPrice?.periodUnit}';
   String get monthlyOffering => '${offerings?.current?.monthly?.storeProduct.priceString}';
 
+  // annual offering
+  bool get hasAnnualOffering => offerings?.current?.annual != null;
+  bool get hasAnnualIntroOffering => offerings?.current?.annual?.storeProduct.introductoryPrice != null;
+  String get annualIntroOffering =>
+      '${offerings?.current?.annual?.storeProduct.introductoryPrice?.periodNumberOfUnits} x ${offerings?.current?.monthly?.storeProduct.introductoryPrice?.periodUnit}';
+  String get annualOffering => '${offerings?.current?.annual?.storeProduct.priceString}';
+
   const RevenuecatState({
     this.offerings,
     this.customerInfo,
@@ -35,5 +42,14 @@ class RevenuecatState {
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage ?? this.errorMessage,
     );
+  }
+
+  int getAnnualSavings() {
+    if (!hasAnnualOffering) return 0;
+
+    double fullAnnualPrice = offerings?.current?.annual?.storeProduct.price ?? 0;
+    double monthlyPrice = offerings?.current?.monthly?.storeProduct.price ?? 0;
+
+    return ((1 - (fullAnnualPrice / (monthlyPrice * 12))) * 100).ceilToDouble().toInt();
   }
 }

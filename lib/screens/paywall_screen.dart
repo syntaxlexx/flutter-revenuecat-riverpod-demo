@@ -142,6 +142,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                           ),
                           // sub buttons
                           getMonthlyButton(revenueCat),
+                          getAnnualButton(revenueCat),
                         ],
                       ),
                     ),
@@ -168,7 +169,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                   ? Column(
                       children: [
                         Text(
-                          'Start a  ${revenueCat.monthlyOffering} Free Trial'.toUpperCase(),
+                          'Start a ${revenueCat.monthlyIntroOffering} Free Trial'.toUpperCase(),
                           style: context.bodySmall?.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -190,6 +191,59 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+            ),
+          );
+  }
+
+  Widget getAnnualButton(RevenuecatState revenueCat) {
+    return !revenueCat.hasAnnualOffering
+        ? Container()
+        : Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 22),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Constants.primaryColor,
+            ),
+            child: Center(
+              child: Column(
+                children: [
+                  revenueCat.hasAnnualIntroOffering
+                      ? Column(
+                          children: [
+                            Text(
+                              'Start a ${revenueCat.annualIntroOffering} Free Trial'.toUpperCase(),
+                              style: context.bodySmall?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '${revenueCat.annualOffering}/year after',
+                              style: context.bodySmall?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Text(
+                          'Start a ${revenueCat.annualOffering}/year subscription',
+                          style: context.bodySmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                  Text(
+                    'Save ${revenueCat.getAnnualSavings()}% Annually',
+                    style: context.bodyMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
   }
