@@ -1,0 +1,10 @@
+# dart run package_rename
+package_rename_config:
+  android:
+    app_name: Revenuecat Demo
+    package_name: com.acelords.revenuedemoapp
+
+  ios:
+    app_name: Revenuecat Demo
+    bundle_name: revenuecat_demo
+    package_name: com.acelords.revenuedemoapp
