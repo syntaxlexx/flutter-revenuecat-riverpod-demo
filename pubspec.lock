@@ -232,6 +232,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  icons_launcher:
+    dependency: "direct main"
+    description:
+      name: icons_launcher
+      sha256: "8f81b295f5de3796e9662ac385c174ee5255f7c4cee1df031393c17c616cff57"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   image:
     dependency: transitive
     description:
@@ -436,10 +444,10 @@ packages:
     dependency: "direct main"
     description:
       name: purchases_flutter
-      sha256: "3f7dd54cd63bf9a58161b2a213fb71f803fe44535b0ae2694fbc611020d02b44"
+      sha256: "453d01f3f9d3ddd382d27d8465abd08040a12980c1d959aeb9f539019f5b033f"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0-beta.2"
+    version: "5.0.0"
   riverpod:
     dependency: transitive
     description:
